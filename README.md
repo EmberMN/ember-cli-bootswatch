@@ -3,6 +3,9 @@ ember-cli-bootswatch
 
 An [ember-cli addon](http://www.emberaddons.com/) to import a [Bootswatch](http://bootswatch.com/) theme for [Bootstrap](http://getbootstrap.com/), including the fonts and JavaScript. This addon is only meant to import the related bower files and does NOT contain [Ember Components](http://emberjs.com/guides/components/) to use within your templates. Other addons provide those features, such as [ember-cli-bootstrap](https://github.com/dockyard/ember-cli-bootstrap).
 
+
+
+
 ## Installation
 
 From within your [ember-cli](http://www.ember-cli.com/) project, run the following:
@@ -15,7 +18,10 @@ ember generate ember-cli-bootswatch
 That will install the ember-cli addon along with bower dependencies for bootswatch and bootstrap.
 
 
+
+
 ## Configuration
+
 
 #### Addon Options
 
@@ -62,6 +68,7 @@ var app = new EmberApp({
 module.exports = app.toTree();
 ```
 
+
 #### Bootswatch Version
 
 Use [bower to change the version](http://bower.io/docs/api/#install) of Bootswatch and Bootstrap that is imported. Be sure to save the new version to your `bower.json` file as well. Ex:
@@ -69,6 +76,8 @@ Use [bower to change the version](http://bower.io/docs/api/#install) of Bootswat
 ```bash
 bower install --save bootswatch#2.3.2 bootstrap#2.3.2
 ```
+
+
 
 
 ## Usage with other Bootstrap addons
@@ -99,7 +108,10 @@ module.exports = app.toTree();
 ```
 
 
+
+
 ## FAQ's
+
 
 #### Will this addon work without ember-cli-bootstrap?
 
@@ -120,13 +132,16 @@ export default Ember.Component.extend({
 });
 ```
 
-#### What if I want the bootstrap.js file for ember-cli-bootstrap?
+
+#### What if I want the bootstrap.js file from ember-cli-bootstrap?
 
 Although the goal of ember-cli-bootstrap is to provide Ember Components for Bootstraps Components, you can still import the `bootstrap.js` file from bower. Technically both addons will import that file from the same location, so either can be configured to include it. Simply remove the `'excludeJS'` option in the example configuration above or include the [`'importBootstrapJS': true` option for ember-cli-bootstrap`](https://github.com/dockyard/ember-cli-bootstrap#importing-javascript-from-twitter-bootstrap).
 
-#### Getting an error like "Fonts already imported (possibly by ember-cli-bootstrap)" but I already have 'importBootstrapFont':false in my Brocfile...
+
+#### Getting an error "Fonts already imported (possibly by ember-cli-bootstrap)" but I already have 'importBootstrapFont':false in my Brocfile...
 
 The `importBootstrapFont` option for ember-cli-bootstrap is new as of version 0.0.13, it is likely that you have an older version. Either update your ember-cli-bootstrap addon or disable the bootswatch fonts with the `excludeFonts` option until you are able to update.
+
 
 #### Any cool tricks when using Bootstrap with Ember?
 

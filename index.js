@@ -33,19 +33,19 @@ module.exports = {
 
     // Make sure bootswatch is available
     if (!fs.existsSync(bootswatchPath)) {
-      throw new Error(chalk.red(
+      throw new Error(
         this.name + ': Bootswatch is not available from bower (' + bootswatchPath + '), ' +
         'install into your project by `bower install bootswatch --save`'
-      ));
+      );
     }
 
 
     // Make sure bootstrap is available
     if (!options.excludeJS && !fs.existsSync(bootstrapPath)) {
-      throw new Error(chalk.red(
+      throw new Error(
         this.name + ': Bootstrap is not available from bower (' + bootstrapPath + '), ' +
         'install into your project by `bower install bootstrap --save`'
-      ));
+      );
     }
 
 
@@ -99,18 +99,18 @@ module.exports = {
 
     // Theme option is required
     if (!options.theme) {
-      throw new Error(chalk.red(
+      throw new Error(
         this.name + ': Theme is required, please define `"theme":"theme-name"`' +
         ' for the "' + this.name + '" options in your Brocfile.js'
-      ));
+      );
     }
 
 
     // Fail if theme does not exist
     if (!fs.existsSync(themePath)) {
-      throw new Error(chalk.red(
+      throw new Error(
         this.name + ': Theme (' + options.theme + ') is not available, directory not found [' + themePath + ']'
-      ));
+      );
     }
 
 

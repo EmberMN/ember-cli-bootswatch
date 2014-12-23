@@ -94,7 +94,7 @@ module.exports = {
       }
 
 
-    } // if (!!app.project.addonPackages['ember-cli-bootstrap'])
+    } // if (app.project.addonPackages['ember-cli-bootstrap'])
 
 
     // Theme option is required

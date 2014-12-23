@@ -9,6 +9,7 @@ From within your [ember-cli](http://www.ember-cli.com/) project, run the followi
 
 ```bash
 npm install --save-dev ember-cli-bootswatch
+ember generate ember-cli-bootswatch
 ```
 
 That will install the ember-cli addon along with bower dependencies for bootswatch and bootstrap.

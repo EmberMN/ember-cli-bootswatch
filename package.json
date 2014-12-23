@@ -1,7 +1,7 @@
 {
   "name": "ember-cli-bootswatch",
   "description": "An ember-cli addon to import a Bootswatch theme for Bootstrap.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "author": "Ryan <panman82@gmail.com>",
   "homepage": "https://github.com/Panman8201/ember-cli-bootswatch",
@@ -22,7 +22,6 @@
     "ui"
   ],
   "scripts": {
-    "install": "ember generate ember-cli-bootswatch",
     "test": "echo \"Error: no test specified, PRs welcome\" && exit 1"
   },
   "devDependencies": {

@@ -1,21 +1,31 @@
 ember-cli-bootswatch
 ====================
 
-An [ember-cli addon](http://www.emberaddons.com/) to import a [Bootswatch](http://bootswatch.com/) theme for [Bootstrap](http://getbootstrap.com/), including the fonts and JavaScript. This addon is only meant to import the related bower files and does NOT contain [Ember Components](http://emberjs.com/guides/components/) to use within your templates. Other addons provide those features, such as [ember-cli-bootstrap](https://github.com/dockyard/ember-cli-bootstrap).
+An [ember-cli addon](http://www.emberaddons.com/) to import a [Bootswatch](http://bootswatch.com/) theme for [Bootstrap](http://getbootstrap.com/), including the fonts and JavaScript. This addon is only meant to import the related bower files and does NOT contain [Ember Components](http://emberjs.com/guides/components/) to use within your templates. Other addons provide those features, such as [ember-cli-bootstrap](https://github.com/dockyard/ember-cli-bootstrap). Requires ember-cli 0.0.41 or higher.
 
 
 
 
 ## Installation
 
-From within your [ember-cli](http://www.ember-cli.com/) project, run the following:
+From within your [ember-cli](http://www.ember-cli.com/) project, run the following (depending on your ember-cli version) to install the addon and bower dependencies for bootstrap and bootswatch:
 
 ```bash
+# ember-cli 0.1.5 or higher
+ember install:addon ember-cli-bootswatch
+```
+
+```bash
+# ember-cli from 0.0.43 to 0.1.4
 npm install --save-dev ember-cli-bootswatch
 ember generate ember-cli-bootswatch
 ```
 
-That will install the ember-cli addon along with bower dependencies for bootswatch and bootstrap.
+```bash
+# ember-cli from 0.0.41 to 0.0.43
+npm install --save-dev ember-cli-bootswatch
+bower install --save bootstrap bootswatch
+```
 
 
 
@@ -119,7 +129,6 @@ Yes, by default this addon will import everything required to use Bootstrap. All
 
 ```javascript
 // app/components/bs-tooltip.js
-
 import Ember from 'ember';
 
 export default Ember.Component.extend({

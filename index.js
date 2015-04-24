@@ -66,6 +66,16 @@ module.exports = {
     }
 
 
+    // Friendly message if the addon will not do anything
+    if (options.excludeFonts && options.excludeJS && options.excludeCSS) {
+      console.error(chalk.red(
+        this.name + ': All exclude options are enabled (excludeCSS, excludeJS, excludeFonts). ' +
+        'This addon will not import anything into your build tree, which may be intended if ' +
+        'you plan on only using SASS or LESS files.'
+      ));
+    }
+
+
     // Include bootstrap fonts by default, opt-out option
     if (!options.excludeFonts) {
 

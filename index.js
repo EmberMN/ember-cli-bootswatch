@@ -49,54 +49,6 @@ module.exports = {
     }
 
 
-    // Detect ember-cli-bootstrap addon
-    if (app.project.addonPackages['ember-cli-bootstrap']) {
-
-
-      // Get bootstrap specific options
-      var bootstrapOptions = app.options['ember-cli-bootstrap'] || {};
-
-
-      // Both addons should not include bootstrap.js
-      if (!options.excludeJS && bootstrapOptions.importBootstrapJS) {
-        console.error(chalk.red(
-          this.name + ': bootstrap.js is already being imported by ember-cli-bootstrap, ' +
-          'disable by setting `"importBootstrapJS":false` for the "ember-cli-bootstrap" options in your Brocfile.js'
-        ));
-      }
-
-
-      // Bootstrap default css should not be included since bootswatch themes include this
-      if (bootstrapOptions.importBootstrapCSS !== false) {
-        console.error(chalk.red(
-          this.name + ': bootstrap.css is being imported by ember-cli-bootstrap, ' +
-          'disable by setting `"importBootstrapCSS":false` for the "ember-cli-bootstrap" options in your Brocfile.js'
-        ));
-      }
-
-
-      // Bootstraps default theme should not be included since bootswatch is used..
-      if (bootstrapOptions.importBootstrapTheme) {
-        console.error(chalk.red(
-          this.name + ': bootstrap-theme.css is being imported by ember-cli-bootstrap, ' +
-          'disable by setting `"importBootstrapTheme":false` for the "ember-cli-bootstrap" options in your Brocfile.js'
-        ));
-      }
-
-
-      // Both addons should not include the fonts
-      // Note: importBootstrapFont is a new option, in the past fonts were included by default
-      if (!options.excludeFonts && bootstrapOptions.importBootstrapFont !== false) {
-        console.error(chalk.red(
-          this.name + ': Bootstrap fonts are already being imported by ember-cli-bootstrap, ' +
-          'disable by setting `"importBootstrapFont":false` for the "ember-cli-bootstrap" options in your Brocfile.js'
-        ));
-      }
-
-
-    } // if (app.project.addonPackages['ember-cli-bootstrap'])
-
-
     // Theme option is required
     if (!options.theme) {
       throw new Error(

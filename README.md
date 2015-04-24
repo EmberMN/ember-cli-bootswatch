@@ -52,6 +52,7 @@ Options for this addon are configured in the projects `Brocfile.js` file
 as an 'ember-cli-bootswatch' object property. Available options include:
 
 * `theme` [string]: Name of the Bootswatch theme to be imported (required)
+* `excludeCSS` [boolean]: By default, the theme's `bootstrap.css` file will be imported
 * `excludeJS` [boolean]: By default, the `bootstrap.js` file will be imported from Bootstrap
 * `excludeFonts` [boolean]: By default, the [font files](https://github.com/thomaspark/bootswatch/tree/gh-pages/fonts) will be imported from Bootswatch
 

@@ -118,11 +118,13 @@ module.exports = {
     }
 
 
-    // Import bootswatch theme into vendor tree
-    app.import({
-      development: themePath + '/bootstrap.css',
-      production:  themePath + '/bootstrap.min.css'
-    });
+    // Include bootswatch css by default, opt-out option
+    if (!options.excludeCSS) {
+      app.import({
+        development: themePath + '/bootstrap.css',
+        production:  themePath + '/bootstrap.min.css'
+      });
+    }
 
 
   } // :included

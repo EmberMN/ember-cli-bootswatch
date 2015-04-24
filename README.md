@@ -1,7 +1,7 @@
 ember-cli-bootswatch
 ====================
 
-An [ember-cli addon](http://www.emberaddons.com/) to import a [Bootswatch](http://bootswatch.com/) theme for [Bootstrap](http://getbootstrap.com/), including the fonts and JavaScript. This addon is only meant to import the related bower files and does NOT contain [Ember Components](http://emberjs.com/guides/components/) to use within your templates. Other addons provide those features, such as [ember-cli-bootstrap](https://github.com/dockyard/ember-cli-bootstrap). Requires ember-cli 0.0.41 or higher.
+An [ember-cli addon](http://www.emberaddons.com/) to import a [Bootswatch](http://bootswatch.com/) theme for [Bootstrap](http://getbootstrap.com/), including the fonts and JavaScript. This addon is only meant to import the related bower files and does NOT contain [Ember Components](http://emberjs.com/guides/components/) to use within your templates. Other addons provide those features, [search emberaddons.com](http://www.emberaddons.com/?query=bootstrap) for those. Requires ember-cli 0.0.41 or higher.
 
 
 
@@ -11,7 +11,12 @@ An [ember-cli addon](http://www.emberaddons.com/) to import a [Bootswatch](http:
 From within your [ember-cli](http://www.ember-cli.com/) project, run the following (depending on your ember-cli version) to install the addon and bower dependencies for bootstrap and bootswatch:
 
 ```bash
-# ember-cli 0.1.5 or higher
+# ember-cli 0.2.3 or higher
+ember install ember-cli-bootswatch
+```
+
+```bash
+# ember-cli from 0.1.5 to 0.2.2
 ember install:addon ember-cli-bootswatch
 ```
 
@@ -92,7 +97,7 @@ bower install --save bootswatch#2.3.2 bootstrap#2.3.2
 
 ## Usage with other Bootstrap addons
 
-Other Bootstrap addons should be configured NOT to import Bootstrap files (styles, themes, fonts, etc.) This way files imported by Bootswatch do not conflict with other files and versions. But at the same time, if another addon requires their own version of a file (such as JavaScript), then disable the import from Bootswatch. For example, when using ember-cli-bootstrap the recommended options for both addons are:
+Other Bootstrap addons should be configured NOT to import Bootstrap files (styles, themes, fonts, etc.) This way files imported by Bootswatch do not conflict with other files and versions. But at the same time, if another addon requires their own version of a file (such as JavaScript), then disable the import from Bootswatch. For example, when using [ember-cli-bootstrap](https://github.com/dockyard/ember-cli-bootstrap) the recommended options for both addons are:
 
 ```javascript
 // Brocfile.js

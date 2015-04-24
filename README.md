@@ -184,8 +184,7 @@ location, so either can be configured to include it. Simply remove the
 [`'importBootstrapJS': true` option for ember-cli-bootstrap`](https://github.com/dockyard/ember-cli-bootstrap#importing-javascript-from-twitter-bootstrap).
 
 
-#### Getting an error "Fonts already imported (possibly by ember-cli-bootstrap)"
-but I already have 'importBootstrapFont':false in my Brocfile...
+#### Getting an error "Fonts already imported (possibly by ember-cli-bootstrap)" but I already have 'importBootstrapFont':false in my Brocfile...
 
 The `importBootstrapFont` option for ember-cli-bootstrap is new as of
 version 0.0.13, it is likely that you have an older version. Either update

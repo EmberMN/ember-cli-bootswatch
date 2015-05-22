@@ -2,12 +2,12 @@ ember-cli-bootswatch
 ====================
 
 An [ember-cli addon](http://www.emberaddons.com/) to import a [Bootswatch](http://bootswatch.com/)
-theme for [Bootstrap](http://getbootstrap.com/), including the fonts and
+or [Bootstrap](http://getbootstrap.com/) theme, including the fonts and
 JavaScript. This addon is only meant to import the related bower files and
 does NOT contain [Ember Components](http://emberjs.com/guides/components/)
 to use within your templates. Other addons provide those features,
 [search emberaddons.com](http://www.emberaddons.com/?query=bootstrap) for
-those. Requires ember-cli 0.0.41 or higher.
+those.
 
 
 
@@ -51,13 +51,13 @@ bower install --save bootstrap bootswatch
 Options for this addon are configured in the projects `Brocfile.js` file
 as an 'ember-cli-bootswatch' object property. Available options include:
 
-* `theme` [string]: Name of the Bootswatch theme to be imported (required)
+* `theme` [string]: Name of the Bootswatch theme to be imported, or `'default'` for the standard Bootstrap theme and `'bootstrap'` for the ["visually enhanced"](http://getbootstrap.com/getting-started/#bootstrap-theme) Bootstrap theme
 * `excludeCSS` [boolean]: By default, the theme's `bootstrap.css` file will be imported
 * `excludeJS` [boolean]: By default, the `bootstrap.js` file will be imported from Bootstrap
-* `excludeFonts` [boolean]: By default, the [font files](https://github.com/thomaspark/bootswatch/tree/gh-pages/fonts) will be imported from Bootswatch
+* `excludeFonts` [boolean]: By default, the [font files](https://github.com/thomaspark/bootswatch/tree/gh-pages/fonts) will be imported
 
-The only required option is the Bootswatch theme. If you do not need to
-adjust any other options, you can just define a string of the theme name
+The only important option is the theme. If you do not need to adjust
+any other options, you can just define a string of the theme name
 as the bootswatch options:
 
 ```javascript
@@ -131,6 +131,8 @@ the import from Bootswatch.
 that will look for `active` child views and apply the `.active` class to
 the current element. I've taken it a step further and also have it check
 for `disabled` views.
+
+*Note: The implementation of this post Glimmer (Ember 1.13.0) is TBD.*
 
 ```javascript
 // app/components/link-li.js

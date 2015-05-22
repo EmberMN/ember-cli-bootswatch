@@ -25,10 +25,22 @@ module.exports = {
     }
 
 
+    // Set a default theme if none specified
+    if (!options.theme) {
+      options.theme = 'default';
+      console.log(
+        this.name + ': No theme specified, defaulting to the "default" Bootstrap theme. ' +
+        'Define `"theme":"theme-name"` for the "' + this.name + '" options in your ' +
+        'Brocfile.js to get rid of this message.'
+      );
+    }
+
+
     // Other local variables needed
     var bootstrapPath  = app.bowerDirectory + '/bootstrap/dist';
     var bootswatchPath = app.bowerDirectory + '/bootswatch';
-    var themePath      = bootswatchPath + '/' + options.theme;
+    var themePath      = (options.theme === 'default' || options.theme === 'bootstrap' ? bootstrapPath + '/css' : bootswatchPath + '/' + options.theme);
+    var fontsPath      = (options.theme === 'default' || options.theme === 'bootstrap' ? bootstrapPath + '/fonts' : bootswatchPath + '/fonts');
 
 
     // Make sure bootswatch is available
@@ -45,15 +57,6 @@ module.exports = {
       throw new Error(
         this.name + ': Bootstrap is not available from bower (' + bootstrapPath + '), ' +
         'install into your project by `bower install bootstrap --save`'
-      );
-    }
-
-
-    // Theme option is required
-    if (!options.theme) {
-      throw new Error(
-        this.name + ': Theme is required, please define `"theme":"theme-name"`' +
-        ' for the "' + this.name + '" options in your Brocfile.js'
       );
     }
 
@@ -81,7 +84,7 @@ module.exports = {
 
 
       // Get all of the font files
-      var fontsToImport = fs.readdirSync(bootswatchPath + '/fonts');
+      var fontsToImport = fs.readdirSync(fontsPath);
       var filesInFonts  = []; // Bucket for filenames already in the fonts folder
       var fontsSkipped  = []; // Bucket for fonts not imported because they already have been
 
@@ -99,7 +102,7 @@ module.exports = {
         if (filesInFonts.indexOf(fontFilename) > -1) {
           fontsSkipped.push(fontFilename);
         } else {
-          app.import(bootswatchPath + '/fonts/' + fontFilename, {destDir:'/fonts'});
+          app.import(fontsPath + '/' + fontFilename, {destDir:'/fonts'});
         }
       });
 
@@ -109,8 +112,8 @@ module.exports = {
       if (fontsSkipped.length) {
         console.error(chalk.red(
           this.name + ': Fonts already imported [' + fontsSkipped.join(', ') +
-          '] by another addon or in your Brocfile.js, ' +
-          'disable the import from other locations or disable the bootswatch import by setting ' +
+          '] by another addon or in your Brocfile.js, disable the import ' +
+          'from other locations or disable the bootswatch import by setting ' +
           '`"excludeFonts":true` for the "' + this.name + '" options in your Brocfile.js'
         ));
       }
@@ -134,7 +137,16 @@ module.exports = {
         development: themePath + '/bootstrap.css',
         production:  themePath + '/bootstrap.min.css'
       });
-    }
+
+      // The 'bootstrap' theme also needs another file
+      if (options.theme === 'bootstrap') {
+        app.import({
+          development: themePath + '/bootstrap-theme.css',
+          production:  themePath + '/bootstrap-theme.min.css'
+        });
+      }
+
+    } // if (!options.excludeCSS)
 
 
   } // :included

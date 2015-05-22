@@ -124,6 +124,38 @@ the import from Bootswatch.
 ## FAQ's
 
 
+#### I'm getting a "Content Security Policy violation" in the cli console
+
+Depending on which theme you choose, the CSS might import fonts from a CDN,
+such as http://fonts.googleapis.com. You'll need to modify ember-cli's default
+[Content Security Policy addon](https://github.com/rwjblue/ember-cli-content-security-policy)
+rules to allow such requests. Ex:
+
+```
+// config/environment.js
+/* jshint node: true */
+
+module.exports = function(environment) {
+  var ENV = {
+    // (snip)
+    // Be sure to add a comma to the previous object property
+    // },
+
+    // ember-cli-bootswatch
+    contentSecurityPolicy: {
+      'font-src': "'self' http://fonts.gstatic.com",
+      'style-src': "'self' http://fonts.googleapis.com"
+    }
+
+  };
+
+  // (snip)
+
+  return ENV;
+};
+```
+
+
 #### Any cool tricks when using Bootstrap with Ember?
 
 [alexspeller](https://twitter.com/alexspeller/) posted a

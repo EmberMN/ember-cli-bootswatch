@@ -116,80 +116,12 @@ Other Bootstrap addons should be configured NOT to import Bootstrap files
 (styles, themes, fonts, etc.) This way files imported by Bootswatch do not
 conflict with other files and versions. But at the same time, if another
 addon requires their own version of a file (such as JavaScript), then disable
-the import from Bootswatch. For example, when using
-[ember-cli-bootstrap](https://github.com/dockyard/ember-cli-bootstrap) the
-recommended options for both addons are:
-
-```javascript
-// Brocfile.js
-/* global require, module */
-
-var EmberApp = require('ember-cli/lib/broccoli/ember-app');
-
-var app = new EmberApp({
-  'ember-cli-bootstrap': {
-    'importBootstrapCSS':   false, // included in the bootswatch theme
-    'importBootstrapTheme': false, // again, using bootswatch theme
-    'importBootstrapFont':  false  // using bootswatch font files
-  },
-  'ember-cli-bootswatch': {
-    'theme': 'cerulean', // bootswatch theme
-    'excludeJS': true    // ember-cli-bootstrap includes javascript components
-  }
-});
-
-// ... (documentation snipped)
-
-module.exports = app.toTree();
-```
+the import from Bootswatch.
 
 
 
 
 ## FAQ's
-
-
-#### Will this addon work without ember-cli-bootstrap?
-
-Yes, by default this addon will import everything required to
-use Bootstrap. All CSS [styling](http://getbootstrap.com/css/)
-and [components](http://getbootstrap.com/components/) will be
-available but [JavaScript components](http://getbootstrap.com/javascript/)
-will need to be initialized and destroyed on a View or Components
-[life cycle events](http://emberjs.com/guides/understanding-ember/the-view-layer/#toc_lifecycle-hooks).
-Ex:
-
-```javascript
-// app/components/bs-tooltip.js
-import Ember from 'ember';
-
-export default Ember.Component.extend({
-  initTooltip: function() {
-    this.$().tooltip();
-  }.on('didInsertElement'),
-  destroyTooltip: function() {
-    this.$().tooltip('destroy');
-  }.on('willDestroyElement')
-});
-```
-
-
-#### What if I want the bootstrap.js file from ember-cli-bootstrap?
-
-Although the goal of ember-cli-bootstrap is to provide Ember Components
-for Bootstraps Components, you can still import the `bootstrap.js` file
-from bower. Technically both addons will import that file from the same
-location, so either can be configured to include it. Simply remove the
-`'excludeJS'` option in the example configuration above or include the
-[`'importBootstrapJS': true` option for ember-cli-bootstrap`](https://github.com/dockyard/ember-cli-bootstrap#importing-javascript-from-twitter-bootstrap).
-
-
-#### Getting an error "Fonts already imported (possibly by ember-cli-bootstrap)" but I already have 'importBootstrapFont':false in my Brocfile...
-
-The `importBootstrapFont` option for ember-cli-bootstrap is new as of
-version 0.0.13, it is likely that you have an older version. Either update
-your ember-cli-bootstrap addon or disable the bootswatch fonts with the
-`excludeFonts` option until you are able to update.
 
 
 #### Any cool tricks when using Bootstrap with Ember?

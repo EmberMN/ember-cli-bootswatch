@@ -109,7 +109,7 @@ module.exports = {
       if (fontsSkipped.length) {
         console.error(chalk.red(
           this.name + ': Fonts already imported [' + fontsSkipped.join(', ') +
-          '] by another addon (possibly ember-cli-bootstrap) or in your Brocfile.js, ' +
+          '] by another addon or in your Brocfile.js, ' +
           'disable the import from other locations or disable the bootswatch import by setting ' +
           '`"excludeFonts":true` for the "' + this.name + '" options in your Brocfile.js'
         ));

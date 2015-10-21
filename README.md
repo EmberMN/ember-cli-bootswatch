@@ -143,8 +143,8 @@ module.exports = function(environment) {
 
     // ember-cli-bootswatch
     contentSecurityPolicy: {
-      'font-src': "'self' http://fonts.gstatic.com",
-      'style-src': "'self' http://fonts.googleapis.com"
+      'font-src': "'self' https://fonts.gstatic.com",
+      'style-src': "'self' https://fonts.googleapis.com"
     }
 
   };

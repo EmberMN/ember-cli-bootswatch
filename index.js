@@ -12,9 +12,12 @@ module.exports = {
 
 
   included: function(app) {
+    // Per the ADDON_HOOKS.md document
+    // https://github.com/ember-cli/ember-cli/blob/master/ADDON_HOOKS.md#included
+    this._super.included.apply(this, arguments);
 
 
-    // Addon options from the apps Brocfile.js
+    // Addon options from the apps ember-cli-build.js
     var options = app.options[this.name] || {};
 
 
@@ -31,7 +34,7 @@ module.exports = {
       console.log(
         this.name + ': No theme specified, defaulting to the "default" Bootstrap theme. ' +
         'Define `"theme":"theme-name"` for the "' + this.name + '" options in your ' +
-        'Brocfile.js to get rid of this message.'
+        'ember-cli-build.js to get rid of this message.'
       );
     }
 
@@ -74,7 +77,7 @@ module.exports = {
       console.error(chalk.red(
         this.name + ': All exclude options are enabled (excludeCSS, excludeJS, excludeFonts). ' +
         'This addon will not import anything into your build tree, which may be intended if ' +
-        'you plan on only using SASS or LESS files.'
+        'you plan on only using Sass or Less files.'
       ));
     }
 
@@ -112,9 +115,9 @@ module.exports = {
       if (fontsSkipped.length) {
         console.error(chalk.red(
           this.name + ': Fonts already imported [' + fontsSkipped.join(', ') +
-          '] by another addon or in your Brocfile.js, disable the import ' +
+          '] by another addon or in your ember-cli-build.js, disable the import ' +
           'from other locations or disable the bootswatch import by setting ' +
-          '`"excludeFonts":true` for the "' + this.name + '" options in your Brocfile.js'
+          '`"excludeFonts":true` for the "' + this.name + '" options in your ember-cli-build.js'
         ));
       }
 

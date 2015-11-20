@@ -11,14 +11,14 @@ module.exports = {
     var addon = this;
 
     // Ability to add multiple bower packages introduced in ember-cli 0.1.2
-    if (this.addBowerPackagesToProject) {
-      return this.addBowerPackagesToProject([
-        {name: 'bootstrap', target: '^3.3.4'},
-        {name: 'bootswatch', target: '^3.3.4'}
+    if (addon.addBowerPackagesToProject) {
+      return addon.addBowerPackagesToProject([
+        {name: 'bootstrap', target: '^3.3.5'},
+        {name: 'bootswatch', target: '^3.3.5'}
       ]);
     } else { // Else need to add them individually
-      return this.addBowerPackageToProject('bootstrap', '^3.3.4').then(function(){
-        return addon.addBowerPackageToProject('bootswatch', '^3.3.4');
+      return addon.addBowerPackageToProject('bootstrap', '^3.3.5').then(function(){
+        return addon.addBowerPackageToProject('bootswatch', '^3.3.5');
       });
     }
 

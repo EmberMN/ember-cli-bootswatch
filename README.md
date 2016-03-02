@@ -22,6 +22,8 @@ bootswatch:
 ember install ember-cli-bootswatch
 ```
 
+Note: This addon _is_ compatible with ember-cli 2.x
+
 
 
 

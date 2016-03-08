@@ -128,7 +128,7 @@ module.exports = function(defaults) {
 };
 ```
 
-```css
+```less
 // app/styles/app.less
 @import "bootstrap";
 @import "themeName/variables";

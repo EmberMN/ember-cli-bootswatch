@@ -11,14 +11,20 @@ module.exports = {
   name: 'ember-cli-bootswatch',
 
 
-  included: function(app) {
+  included: function(app, parentAddon) {
+
     // Per the ADDON_HOOKS.md document
     // https://github.com/ember-cli/ember-cli/blob/master/ADDON_HOOKS.md#included
     this._super.included.apply(this, arguments);
 
 
+    // Per the ember-cli documentation
+    // http://ember-cli.com/extending/#broccoli-build-options-for-in-repo-addons
+    var target = (parentAddon || app);
+
+
     // Addon options from the apps ember-cli-build.js
-    var options = app.options[this.name] || {};
+    var options = target.options[this.name] || {};
 
 
     // Options can just be a string of the theme,
@@ -40,8 +46,8 @@ module.exports = {
 
 
     // Other local variables needed
-    var bootstrapPath  = app.bowerDirectory + '/bootstrap/dist';
-    var bootswatchPath = app.bowerDirectory + '/bootswatch';
+    var bootstrapPath  = target.bowerDirectory + '/bootstrap/dist';
+    var bootswatchPath = target.bowerDirectory + '/bootswatch';
     var themePath      = (options.theme === 'default' || options.theme === 'bootstrap' ? bootstrapPath + '/css' : bootswatchPath + '/' + options.theme);
     var fontsPath      = (options.theme === 'default' || options.theme === 'bootstrap' ? bootstrapPath + '/fonts' : bootswatchPath + '/fonts');
 
@@ -50,7 +56,7 @@ module.exports = {
     if (!fs.existsSync(bootswatchPath)) {
       throw new Error(
         this.name + ': Bootswatch is not available from bower (' + bootswatchPath + '), ' +
-        'install into your project by `bower install bootswatch --save`'
+        'install into your project by running `bower install bootswatch --save`'
       );
     }
 
@@ -59,7 +65,7 @@ module.exports = {
     if (!options.excludeJS && !fs.existsSync(bootstrapPath)) {
       throw new Error(
         this.name + ': Bootstrap is not available from bower (' + bootstrapPath + '), ' +
-        'install into your project by `bower install bootstrap --save`'
+        'install into your project by running `bower install bootstrap --save`'
       );
     }
 
@@ -93,7 +99,7 @@ module.exports = {
 
 
       // Find files already imported into the fonts folder
-      app.otherAssetPaths.forEach(function(asset){
+      target.otherAssetPaths.forEach(function(asset){
         if (asset.dest == '/fonts') {
           filesInFonts.push(asset.file);
         }
@@ -105,7 +111,7 @@ module.exports = {
         if (filesInFonts.indexOf(fontFilename) > -1) {
           fontsSkipped.push(fontFilename);
         } else {
-          app.import(fontsPath + '/' + fontFilename, {destDir:'/fonts'});
+          target.import(fontsPath + '/' + fontFilename, {destDir:'/fonts'});
         }
       });
 
@@ -127,7 +133,7 @@ module.exports = {
 
     // Include bootstrap js by default, opt-out option
     if (!options.excludeJS) {
-      app.import({
+      target.import({
         development: bootstrapPath + '/js/bootstrap.js',
         production:  bootstrapPath + '/js/bootstrap.min.js'
       });
@@ -136,14 +142,14 @@ module.exports = {
 
     // Include bootswatch css by default, opt-out option
     if (!options.excludeCSS) {
-      app.import({
+      target.import({
         development: themePath + '/bootstrap.css',
         production:  themePath + '/bootstrap.min.css'
       });
 
       // The 'bootstrap' theme also needs another file
       if (options.theme === 'bootstrap') {
-        app.import({
+        target.import({
           development: themePath + '/bootstrap-theme.css',
           production:  themePath + '/bootstrap-theme.min.css'
         });

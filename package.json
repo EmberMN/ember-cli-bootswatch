@@ -25,6 +25,6 @@
     "test": "echo \"Error: no test specified, PRs welcome\" && exit 1"
   },
   "dependencies": {
-    "chalk": "^1.1.1"
+    "chalk": "^1.1.3"
   }
 }

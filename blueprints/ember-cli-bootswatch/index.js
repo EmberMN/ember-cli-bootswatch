@@ -11,8 +11,8 @@ module.exports = {
 
   afterInstall: function(options) {
     return this.addBowerPackagesToProject([
-      {name: 'bootstrap', target: '^3.3.6'},
-      {name: 'bootswatch', target: '^3.3.6'}
+      {name: 'bootstrap',  target: '^3.3.7'},
+      {name: 'bootswatch', target: '^3.3.7'}
     ]);
   } // :afterInstall
 

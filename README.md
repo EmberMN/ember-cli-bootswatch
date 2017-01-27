@@ -9,6 +9,8 @@ to use within your templates. Other addons provide those features,
 [search emberaddons.com](http://www.emberaddons.com/?query=bootstrap) for
 those.
 
+_Note, this addon scores low on [Ember Observer](https://emberobserver.com/addons/ember-cli-bootswatch) because; it's very basic and isn't easily testable (-2 points), and it could use more contributers (-1 point). It is still maintained and works with the latest versions of ember-cli (2.x)!_
+
 
 
 

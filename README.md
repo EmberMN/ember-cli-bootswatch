@@ -4,9 +4,9 @@ ember-cli-bootswatch [![Ember Observer Score](https://emberobserver.com/badges/e
 An [ember-cli addon](http://www.emberaddons.com/) to import a [Bootswatch](http://bootswatch.com/)
 or [Bootstrap](http://getbootstrap.com/) theme, including the fonts and
 JavaScript. This addon is only meant to import the related bower files and
-does NOT contain [Ember Components](http://emberjs.com/guides/components/)
+does NOT contain [Ember Components](https://guides.emberjs.com/v2.13.0/components/defining-a-component/)
 to use within your templates. Other addons provide those features,
-[search emberaddons.com](http://www.emberaddons.com/?query=bootstrap) for
+[look at emberobserver.com](https://www.emberobserver.com/categories/bootstrap) for
 those.
 
 _Note, this addon scores low on [Ember Observer](https://emberobserver.com/addons/ember-cli-bootswatch) because; it's very basic and isn't easily testable (-2 points), and it could use more contributers (-1 point). It is still maintained and works with the latest versions of ember-cli (2.x)!_
@@ -42,14 +42,14 @@ as an 'ember-cli-bootswatch' object property. Available options include:
 * `excludeJS` [boolean]: By default, the `bootstrap.js` file will be imported from Bootstrap
 * `excludeFonts` [boolean]: By default, the [font files](https://github.com/thomaspark/bootswatch/tree/gh-pages/fonts) will be imported
 
-The only important option is the `theme`. If you do not need to adjust
+The only required option is the `theme`. If you do not need to adjust
 any other options, you can just define a string of the theme name
 as the bootswatch options:
 
 ```javascript
 // ember-cli-build.js
-/* global require, module */
-var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+/* eslint-env node */
+const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
@@ -67,8 +67,8 @@ option as an object property:
 
 ```javascript
 // ember-cli-build.js
-/* global require, module */
-var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+/* eslint-env node */
+const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
@@ -106,8 +106,8 @@ paths, and finally import the Less files. Ex:
 
 ```javascript
 // ember-cli-build.js
-/* global require, module */
-var EmberApp = require('ember-cli/lib/broccoli/ember-app');
+/* eslint-env node */
+const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
@@ -163,7 +163,7 @@ rules to allow such requests. Ex:
 
 ```javascript
 // config/environment.js
-/* jshint node: true */
+/* eslint-env node */
 
 module.exports = function(environment) {
   var ENV = {

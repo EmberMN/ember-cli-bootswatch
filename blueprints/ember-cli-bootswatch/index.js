@@ -1,4 +1,4 @@
-/*jshint node:true*/
+/* eslint-env node */
 
 module.exports = {
   description: 'Add bower dependencies for bootstrap and bootswatch to the project',

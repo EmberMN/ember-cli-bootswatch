@@ -3,7 +3,6 @@
 
 
 // module requirements
-var chalk = require('chalk');
 var fs    = require('fs');
 
 
@@ -80,11 +79,11 @@ module.exports = {
 
     // Friendly message if the addon will not do anything
     if (options.excludeFonts && options.excludeJS && options.excludeCSS) {
-      console.error(chalk.red(
+      console.error(
         this.name + ': All exclude options are enabled (excludeCSS, excludeJS, excludeFonts). ' +
         'This addon will not import anything into your build tree, which may be intended if ' +
         'you plan on only using Sass or Less files.'
-      ));
+      );
     }
 
 
@@ -119,12 +118,12 @@ module.exports = {
       // Fonts that had already been imported, so bootswatch skipped..
       // But do not error if bootstrap option incorrect, already logged similar error
       if (fontsSkipped.length) {
-        console.error(chalk.red(
+        console.error(
           this.name + ': Fonts already imported [' + fontsSkipped.join(', ') +
           '] by another addon or in your ember-cli-build.js, disable the import ' +
           'from other locations or disable the bootswatch import by setting ' +
           '`"excludeFonts":true` for the "' + this.name + '" options in your ember-cli-build.js'
-        ));
+        );
       }
 
 

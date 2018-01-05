@@ -64,6 +64,18 @@ module.exports = {
           return files; // return a unique list
         }, []);
 
+        // Import popper.js if an included plugin requires it
+        // http://getbootstrap.com/docs/4.0/getting-started/javascript/#dependencies
+        if (
+          options.includeJSPlugins.includes('dropdown') ||
+          options.includeJSPlugins.includes('popover') ||
+          options.includeJSPlugins.includes('tooltip')
+        ) {
+          this.import(
+            path.join('node_modules', 'popper.js', 'dist', 'umd', 'popper.js')
+          );
+        }
+
         let unavailablePlugins = [];
 
         // Attempt to import each plugin
@@ -86,6 +98,9 @@ module.exports = {
         }
 
       } else { // import all bootstrap plugins
+        this.import(
+          path.join('node_modules', 'popper.js', 'dist', 'umd', 'popper.js')
+        );
         this.import(
           path.join('node_modules', 'bootstrap', 'dist', 'js', 'bootstrap.js')
         );

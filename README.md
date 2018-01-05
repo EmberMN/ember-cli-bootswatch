@@ -4,7 +4,7 @@ ember-cli-bootswatch [![Ember Observer Score](https://emberobserver.com/badges/e
 An [ember-cli addon](http://www.emberaddons.com/) to import a [Bootswatch](http://bootswatch.com/)
 theme or the [Bootstrap](http://getbootstrap.com/) theme, including the JavaScript plugins if desired.
 This addon is only meant to import the appropriate assets and does NOT contain
-[Ember Components](https://guides.emberjs.com/v2.17.0/components/defining-a-component/)
+[Ember Components](https://guides.emberjs.com/v2.18.0/components/defining-a-component/)
 to use within your templates. Other addons provide those features, such as
 [ember-bootstrap](http://www.ember-bootstrap.com/) or
 [visit emberobserver.com](https://www.emberobserver.com/categories/bootstrap) for others.
@@ -98,6 +98,11 @@ module.exports = function(defaults) {
   return app.toTree();
 };
 ```
+
+
+#### Notes on Popper.js
+
+Several of the [Bootstrap plugins depend on Popper.js](http://getbootstrap.com/docs/4.0/getting-started/javascript/#dependencies). If a plugin that requires it is included (dropdown, popover, tooltip), then [Popper.js](https://popper.js.org/) will also be included.
 
 
 

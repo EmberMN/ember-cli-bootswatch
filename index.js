@@ -16,7 +16,7 @@ module.exports = {
 
 
     // Addon options from the apps ember-cli-build.js
-    var options = (app.options && app.options[this.name]) || {};
+    let options = (app.options && app.options[this.name]) || {};
 
 
     // Options can just be a string of the theme,
@@ -48,10 +48,51 @@ module.exports = {
 
     // Include Bootstrap JavaScript by default, opt-out as an option
     if (!options.excludeJS) {
-      this.import(
-        path.join('node_modules', 'bootstrap', 'dist', 'js', 'bootstrap.js')
-      );
-    }
+
+      if (options.includeJSPlugins) {
+
+        // Get all available plugins
+        let bootstrapPath = path.dirname(
+          require.resolve('bootstrap/package.json')
+        );
+        let pluginFiles = fs.readdirSync(
+          path.join( bootstrapPath, 'js', 'dist' )
+        );
+        let availablePlugins = pluginFiles.map(function( file ){
+          return file.split('.')[0]; // remove extensions
+        }).reduce(function( files, file ){
+          if ( !files.includes( file ) ) files.push( file );
+          return files; // return a unique list
+        }, []);
+
+        let unavailablePlugins = [];
+
+        // Attempt to import each plugin
+        for (let pluginName of options.includeJSPlugins) {
+          if (availablePlugins.includes(pluginName)) {
+            this.import(
+              path.join('node_modules', 'bootstrap', 'js', 'dist', pluginName + '.js')
+            );
+          } else {
+            unavailablePlugins.push(pluginName);
+          }
+        }
+
+        // Fail if any plugins are unavailable
+        if (unavailablePlugins.length > 0) {
+          throw new Error(
+            `${this.name}: Some 'includeJSPlugins' are not available (${unavailablePlugins.join(', ')}), ` +
+            `not listed as an option from bootstrap; ${availablePlugins.join(', ')}.`
+          );
+        }
+
+      } else { // import all bootstrap plugins
+        this.import(
+          path.join('node_modules', 'bootstrap', 'dist', 'js', 'bootstrap.js')
+        );
+      } // if (options.includeJSPlugins)
+
+    } // if (!options.excludeJS)
 
 
     // Include Bootswatch CSS by default, opt-out as an option
@@ -61,12 +102,12 @@ module.exports = {
       // ensure the bootswatch theme exists
       if (options.theme !== 'default') {
 
-        var nodePath = path.dirname(
+        let bootswatchPath = path.dirname(
           require.resolve('bootswatch/package.json')
         );
 
-        var availableThemes = fs.readdirSync(
-          path.join( nodePath, 'dist' )
+        let availableThemes = fs.readdirSync(
+          path.join( bootswatchPath, 'dist' )
         );
 
         // Fail if theme does not exist
@@ -80,7 +121,7 @@ module.exports = {
       } // if (options.theme !== 'default')
 
       // Determine the theme CSS path
-      var themePath = (
+      let themePath = (
         options.theme === 'default' ?
         path.join('node_modules', 'bootstrap', 'dist', 'css') :
         path.join('node_modules', 'bootswatch', 'dist', options.theme)

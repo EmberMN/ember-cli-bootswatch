@@ -46,11 +46,12 @@ ember install ember-cli-bootswatch
 Options for this addon are configured in the projects `ember-cli-build.js` file
 as an `'ember-cli-bootswatch'` object property. Available options include:
 
-| Option       | Type    | Default     | Description |
-|--------------|---------|-------------|-------------|
-| `theme`      | string  | `'default'` | Name of the Bootswatch theme to be imported, or `'default'` for the standard Bootstap theme |
-| `excludeCSS` | boolean | `false`     | By default, the theme's `bootstrap.css` file will be imported |
-| `excludeJS`  | boolean | `false`     | By default, the `bootstrap.js` file will be imported from Bootstrap |
+| Option             | Type    | Default       | Description |
+|--------------------|---------|---------------|-------------|
+| `theme`            | string  | *required*    | Name of the Bootswatch theme to be imported, or `'default'` for the standard Bootstap theme |
+| `excludeCSS`       | boolean | `false`       | By default, the theme's `bootstrap.css` file will be imported |
+| `excludeJS`        | boolean | `false`       | By default, the `bootstrap.js` file will be imported from Bootstrap |
+| `includeJSPlugins` | array   | *all plugins* | Limit which JavaScript plugins are imported, list only the plugin name, without `.js` or `.min.js` |
 
 The only required option is the `theme`. If you do not need to adjust
 any other options, you can just define a string of the theme name
@@ -88,7 +89,7 @@ module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
     'ember-cli-bootswatch': {
       theme: 'cerulean',
-      excludeJS: true
+      includeJSPlugins: ['button','tooltip']
     }
   });
 

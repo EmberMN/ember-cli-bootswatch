@@ -102,7 +102,7 @@ module.exports = function(defaults) {
 
 #### Notes on Popper.js
 
-Several of the [Bootstrap plugins depend on Popper.js](http://getbootstrap.com/docs/4.0/getting-started/javascript/#dependencies). If a plugin that requires it is included (dropdown, popover, tooltip), then [Popper.js](https://popper.js.org/) will also be included.
+Several of the [Bootstrap plugins depend on Popper.js](http://getbootstrap.com/docs/4.0/getting-started/javascript/#dependencies). If a plugin that requires it is included (dropdown, popover, tooltip), then [Popper.js](https://popper.js.org/) will also be included. Specifically, if `excludeJS: false` (which is the default) and `includeJSPlugins` is _not_ defined or includes one of the above plugins, then Popper.js will be imported.
 
 
 

@@ -60,16 +60,16 @@ module.exports = {
         let availablePlugins = pluginFiles.map(function( file ){
           return file.split('.')[0]; // remove extensions
         }).reduce(function( files, file ){
-          if ( !files.includes( file ) ) files.push( file );
+          if ( !files.indexOf( file ) > -1 ) files.push( file );
           return files; // return a unique list
         }, []);
 
         // Import popper.js if an included plugin requires it
         // http://getbootstrap.com/docs/4.0/getting-started/javascript/#dependencies
         if (
-          options.includeJSPlugins.includes('dropdown') ||
-          options.includeJSPlugins.includes('popover') ||
-          options.includeJSPlugins.includes('tooltip')
+          options.includeJSPlugins.indexOf('dropdown') > -1 ||
+          options.includeJSPlugins.indexOf('popover') > -1 ||
+          options.includeJSPlugins.indexOf('tooltip') > -1
         ) {
           this.import(
             path.join('node_modules', 'popper.js', 'dist', 'umd', 'popper.js')
@@ -80,7 +80,7 @@ module.exports = {
 
         // Attempt to import each plugin
         for (let pluginName of options.includeJSPlugins) {
-          if (availablePlugins.includes(pluginName)) {
+          if (availablePlugins.indexOf(pluginName) > -1) {
             this.import(
               path.join('node_modules', 'bootstrap', 'js', 'dist', pluginName + '.js')
             );
@@ -125,7 +125,7 @@ module.exports = {
         );
 
         // Fail if theme does not exist
-        if (!availableThemes.includes(options.theme)) {
+        if (!availableThemes.indexOf(options.theme) > -1) {
           throw new Error(
             `${this.name}: Theme (${options.theme}) is not available, ` +
             ` not listed as an option from bootswatch; default, ${availableThemes.join(', ')}.`

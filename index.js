@@ -60,7 +60,7 @@ module.exports = {
         let availablePlugins = pluginFiles.map(function( file ){
           return file.split('.')[0]; // remove extensions
         }).reduce(function( files, file ){
-          if ( !files.indexOf( file ) > -1 ) files.push( file );
+          if ( files.indexOf( file ) === -1 ) files.push( file );
           return files; // return a unique list
         }, []);
 
@@ -125,7 +125,7 @@ module.exports = {
         );
 
         // Fail if theme does not exist
-        if (!availableThemes.indexOf(options.theme) > -1) {
+        if (availableThemes.indexOf(options.theme) === -1) {
           throw new Error(
             `${this.name}: Theme (${options.theme}) is not available, ` +
             ` not listed as an option from bootswatch; default, ${availableThemes.join(', ')}.`

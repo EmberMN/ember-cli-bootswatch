@@ -14,6 +14,12 @@ module.exports = {
     this._super.included.apply(this, arguments);
 
 
+    // Do not import anything if in "fastboot mode"
+    if ( process.env.EMBER_CLI_FASTBOOT ) {
+      return;
+    }
+
+
     // Addon options from the apps ember-cli-build.js
     let options = (app.options && app.options[this.name]) || {};
 

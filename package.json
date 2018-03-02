@@ -26,6 +26,9 @@
     "start": "echo \"Error: this addon is not a full ember-cli addon\" && exit 1",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "engines": {
+    "node": "6.* || >= 8.*"
+  },
   "dependencies": {
     "bootstrap": "^4.0.0",
     "bootswatch": "^4.0.0",

@@ -1,10 +1,10 @@
 ember-cli-bootswatch [![Ember Observer Score](https://emberobserver.com/badges/ember-cli-bootswatch.svg)](https://emberobserver.com/addons/ember-cli-bootswatch)
 ====================
 
-An [ember-cli addon](http://www.emberaddons.com/) to import a [Bootswatch](http://bootswatch.com/)
+> An [ember-cli addon](http://www.emberaddons.com/) to import a [Bootswatch](http://bootswatch.com/)
 theme or the [Bootstrap](http://getbootstrap.com/) theme, including the JavaScript plugins if desired.
 This addon is only meant to import the appropriate assets and does NOT contain
-[Ember Components](https://guides.emberjs.com/v2.18.0/components/defining-a-component/)
+[Ember Components](https://guides.emberjs.com/v3.0.0/components/defining-a-component/)
 to use within your templates. Other addons provide those features, such as
 [ember-bootstrap](http://www.ember-bootstrap.com/) or
 [visit emberobserver.com](https://www.emberobserver.com/categories/bootstrap) for others.
@@ -18,10 +18,10 @@ _Note, this addon scores low on [Ember Observer](https://emberobserver.com/addon
 
 This addon has a version break for the Bootstrap version and ember-cli requirements.
 
-| Addon Version | Bootstrap Version | ember-cli Version | Dependencies    |
-|---------------|-------------------|-------------------|-----------------|
-| 1.x           | 3.x               | 1.13+             | Uses bower deps |
-| 2.x           | 4.x               | 2.15+             | Uses npm deps   |
+| Addon Version | Bootstrap Version | ember-cli Version | Node Version  | Dependencies    |
+|---------------|-------------------|-------------------|---------------|-----------------|
+| 1.x           | 3.x               | 1.13+             | 4.0+          | Uses bower deps |
+| 2.x           | 4.x               | 2.15+             | 6.* || >= 8.* | Uses npm deps   |
 
 
 
@@ -46,12 +46,12 @@ ember install ember-cli-bootswatch
 Options for this addon are configured in the projects `ember-cli-build.js` file
 as an `'ember-cli-bootswatch'` object property. Available options include:
 
-| Option             | Type    | Default       | Description |
-|--------------------|---------|---------------|-------------|
-| `theme`            | string  | *required*    | Name of the Bootswatch theme to be imported, or `'default'` for the standard Bootstap theme |
-| `excludeCSS`       | boolean | `false`       | By default, the theme's `bootstrap.css` file will be imported |
-| `excludeJS`        | boolean | `false`       | By default, the `bootstrap.js` file will be imported from Bootstrap |
-| `includeJSPlugins` | array   | *all plugins* | Limit which JavaScript plugins are imported, list only the plugin name, without `.js` or `.min.js` |
+| Option           | Type             | Default    | Description |
+|------------------|------------------|------------|-------------|
+| `theme`          | string           | *required* | Name of the Bootswatch theme to be imported, or `'default'` for the standard Bootstap theme |
+| `importCSS`      | boolean          | `true`     | Import the theme's `bootstrap.css` file into your `vendor.css` file |
+| `importJS`       | boolean or array | `false`    | Import the `bootstrap.js` file (`true`) or specific Bootstrap plugins (`array`) into your `vendor.js` file |
+| `importPopperJS` | boolean          | `false`**  | Import the [Popper.js dependancy](http://getbootstrap.com/docs/4.0/getting-started/javascript/#dependencies) into your `vendor.js` file. ** Automatically enabled if `importJS = true` or `importJS = []` with a plugin that needs Popper.js.* |
 
 The only required option is the `theme`. If you do not need to adjust
 any other options, you can just define a string of the theme name
@@ -59,13 +59,12 @@ as the ember-cli-bootswatch option:
 
 ```javascript
 // ember-cli-build.js
-/* eslint-env node */
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
-  var app = new EmberApp(defaults, {
+  let app = new EmberApp(defaults, {
     'ember-cli-bootswatch': 'cerulean'
   });
 
@@ -80,16 +79,15 @@ option as an object property:
 
 ```javascript
 // ember-cli-build.js
-/* eslint-env node */
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
-  var app = new EmberApp(defaults, {
+  let app = new EmberApp(defaults, {
     'ember-cli-bootswatch': {
       theme: 'cerulean',
-      includeJSPlugins: ['button','tooltip']
+      importJS: ['button','tooltip']
     }
   });
 
@@ -98,11 +96,6 @@ module.exports = function(defaults) {
   return app.toTree();
 };
 ```
-
-
-#### Notes on Popper.js
-
-Several of the [Bootstrap plugins depend on Popper.js](http://getbootstrap.com/docs/4.0/getting-started/javascript/#dependencies). If a plugin that requires it is included (dropdown, popover, tooltip), then [Popper.js](https://popper.js.org/) will also be included. Specifically, if `excludeJS: false` (which is the default) and `includeJSPlugins` is _not_ defined or includes one of the above plugins, then Popper.js will be imported.
 
 
 
@@ -119,16 +112,14 @@ For example, using this addon with `ember-bootstrap`:
 
 ```javascript
 // ember-cli-build.js
-/* eslint-env node */
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
 module.exports = function(defaults) {
-  var app = new EmberApp(defaults, {
+  let app = new EmberApp(defaults, {
     'ember-cli-bootswatch': {
-      theme: 'cerulean',
-      excludeJS: true
+      theme: 'cerulean'
     },
     'ember-bootstrap': {
       importBootstrapCSS: false

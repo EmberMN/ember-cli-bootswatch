@@ -2,10 +2,10 @@
 
 
 // module requirements
-var fs = require('fs');
-var path = require('path');
-var Funnel = require('broccoli-funnel');
-var MergeTrees = require('broccoli-merge-trees');
+const fs = require('fs');
+const path = require('path');
+const Funnel = require('broccoli-funnel');
+const MergeTrees = require('broccoli-merge-trees');
 
 
 module.exports = {

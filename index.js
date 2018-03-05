@@ -2,8 +2,10 @@
 
 
 // module requirements
-var fs   = require('fs');
+var fs = require('fs');
 var path = require('path');
+var Funnel = require('broccoli-funnel');
+var MergeTrees = require('broccoli-merge-trees');
 
 
 module.exports = {
@@ -13,6 +15,7 @@ module.exports = {
   defaultOptions: {
     // theme: undefined, // REQUIRED option
     importCSS: true,
+    importSass: false, // Auto-detect in `included()`
     importJS: false, // || [array] of plugin names
     importPopperJS: false // Auto-detect in `included()`
   },
@@ -54,6 +57,13 @@ module.exports = {
     }
 
 
+    // Detect if the consuming app has ember-cli-sass installed
+    if (app.dependencies().hasOwnProperty('ember-cli-sass')) {
+      detectedOptions.importCSS = false;
+      detectedOptions.importSass = true;
+    }
+
+
     // Detect previous options and take those into account
     // Note: These can be removed at some point down the road
     let depreciatedOptions = {};
@@ -61,21 +71,21 @@ module.exports = {
       depreciatedOptions.importCSS = false;
       this.ui.writeDeprecateLine(
         `${this.name}: The option 'excludeCSS' has been replaced with 'importCSS'. ` +
-        'The previos option has been applied, but please update your options in "ember-cli-build.js".'
+        'The previous option has been applied, but please update your options in "ember-cli-build.js".'
       );
     }
     if (typeof appOptions.includeJSPlugins === 'array') { // 2.0.0-beta.1 through 2.0.0-beta.3
       depreciatedOptions.importJS = appOptions.includeJSPlugins;
       this.ui.writeDeprecateLine(
         `${this.name}: The option 'includeJSPlugins' has been merged with 'importJS'. ` +
-        'The previos option has been applied, but please update your options in "ember-cli-build.js".'
+        'The previous option has been applied, but please update your options in "ember-cli-build.js".'
       );
     }
     if (appOptions.excludeJS) { // <= 2.0.0-beta.3
       depreciatedOptions.importJS = false;
       this.ui.writeDeprecateLine(
         `${this.name}: The option 'excludeJS' has been replaced with 'importJS'. ` +
-        'The previos option has been applied, but please update your options in "ember-cli-build.js".'
+        'The previous option has been applied, but please update your options in "ember-cli-build.js".'
       );
     }
     if (appOptions.excludeFonts) { // <= 2.0.0-beta.3
@@ -107,17 +117,21 @@ module.exports = {
     }
 
 
+    // Store final option set for use in 'treeForStyles()' below
+    this._options = options;
+
+
     // Friendly message if the addon will not do anything
-    if (!options.importCSS && !options.importJS && !options.importPopperJS) {
+    if (!options.importCSS && !options.importSass && !options.importJS && !options.importPopperJS) {
       this.ui.writeError(
-        `${this.name}: All importing options are disabled (importCSS, importJS, importPopperJS). ` +
-        'This addon will not import anything into your build tree and effectivly does nothing.'
+        `${this.name}: All importing options are disabled (importCSS, importSass, importJS, importPopperJS). ` +
+        'This addon will not import anything into your build tree and effectively does nothing.'
       );
     }
 
 
-    // Import Bootswatch CSS
-    if (options.importCSS) {
+    // Import Bootswatch CSS and/or Sass
+    if (options.importCSS || options.importSass) {
 
       // If not the "default" bootstrap theme,
       // ensure the bootswatch theme exists
@@ -135,7 +149,7 @@ module.exports = {
         if (!availableThemes.includes(options.theme)) {
           throw new Error(
             `${this.name}: Theme (${options.theme}) is not available, ` +
-            ` not listed as an option from bootswatch; default, ${availableThemes.join(', ')}.`
+            `not listed as an option from bootswatch; default, ${availableThemes.join(', ')}.`
           );
         }
 
@@ -148,15 +162,23 @@ module.exports = {
         path.join('node_modules', 'bootswatch', 'dist', options.theme)
       );
 
-      this.import(
-        path.join(themePath, 'bootstrap.css')
-      );
+      // Import Bootswatch CSS
+      if (options.importCSS) {
+        this.import(
+          path.join(themePath, 'bootstrap.css')
+        );
+      }
+
+      // Import Bootswatch Sass
+      if (options.importSass) {
+        // Nothing to do here, treeForStyles() below will handle the rest
+      }
 
     } // if (options.importCSS)
 
 
-    // Import the Popper.js dependancy
-    // Note, sould probably come before imported bootstrap plugins
+    // Import the Popper.js dependency
+    // Note, should probably come before imported bootstrap plugins
     if (options.importPopperJS) {
       this.import(
         path.join('node_modules', 'popper.js', 'dist', 'umd', 'popper.js')
@@ -213,7 +235,42 @@ module.exports = {
     } // if (options.importJS)
 
 
-  } // included()
+  }, // included()
+
+
+  treeForStyles(/* tree */) {
+    let superTree = this._super.treeForStyles.apply(this, arguments);
+
+    // Do not continue if *.scss files are not needed
+    if (!this._options.importSass) {
+      return superTree;
+    }
+
+    let bootstrapPath = path.dirname(
+      require.resolve('bootstrap/package.json')
+    );
+
+    let bootstrapTree = Funnel(
+      path.join(bootstrapPath, 'scss'),
+      { include: ['**/*.scss'], destDir: `${this.name}/bootstrap` }
+    );
+
+    // 'default' theme only uses bootstrap, no need for bootswatch (next)
+    if (this._options.theme === 'default') {
+      return MergeTrees([superTree, bootstrapTree]);
+    }
+
+    let bootswatchPath = path.dirname(
+      require.resolve('bootswatch/package.json')
+    );
+
+    let bootswatchTree = Funnel(
+      path.join(bootswatchPath, 'dist', this._options.theme),
+      { include: ['**/*.scss'], destDir: `${this.name}/bootswatch` }
+    );
+
+    return MergeTrees([superTree, bootstrapTree, bootswatchTree]);
+  } // treeForStyles()
 
 
 }; // module.exports

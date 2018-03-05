@@ -49,9 +49,10 @@ as an `'ember-cli-bootswatch'` object property. Available options include:
 | Option           | Type             | Default    | Description |
 |------------------|------------------|------------|-------------|
 | `theme`          | string           | *required* | Name of the Bootswatch theme to be imported, or `'default'` for the standard Bootstap theme |
-| `importCSS`      | boolean          | `true`     | Import the theme's `bootstrap.css` file into your `vendor.css` file |
+| `importCSS`      | boolean          | `true`**   | Import the theme's `bootstrap.css` file into your `vendor.css` file. ** Automatically disabled if `ember-cli-sass` is detected in the app. |
+| `importSass`     | boolean          | `false`**  | Import the theme's `*.scss` files into the styles tree. Automatically enabled if `ember-cli-sass` is detected in the app. |
 | `importJS`       | boolean or array | `false`    | Import the `bootstrap.js` file (`true`) or specific Bootstrap plugins (`array`) into your `vendor.js` file |
-| `importPopperJS` | boolean          | `false`**  | Import the [Popper.js dependancy](http://getbootstrap.com/docs/4.0/getting-started/javascript/#dependencies) into your `vendor.js` file. ** Automatically enabled if `importJS = true` or `importJS = []` with a plugin that needs Popper.js.* |
+| `importPopperJS` | boolean          | `false`**  | Import the [Popper.js dependency](http://getbootstrap.com/docs/4.0/getting-started/javascript/#dependencies) into your `vendor.js` file. ** Automatically enabled if `importJS = true` or `importJS = []` with a plugin that needs Popper.js.* |
 
 The only required option is the `theme`. If you do not need to adjust
 any other options, you can just define a string of the theme name
@@ -100,6 +101,59 @@ module.exports = function(defaults) {
 
 
 
+## Usage with `ember-cli-sass`
+
+Sass support has been added so that you can `@import` the Bootstrap/Bootswatch
+theme in your `app.scss` file with the ability to [override variable defaults](http://getbootstrap.com/docs/4.0/getting-started/theming/#variable-defaults).
+Just be sure to add your variable overrides *before* the `@import` statement.
+
+When `ember-cli-sass` is detected, the `importScss` option will automatically
+be enabled and `importCSS` disabled (when not defined in your config). Additionally, 
+if `app/styles/app.scss` is found, an import statement is inserted for 
+`@import "ember-cli-bootswatch/bootswatch";`. If you start using Sass after
+installing this addon, you will need to add the import statement to your
+`app.scss` file manually.
+
+If you plan on using the `default` Bootstrap theme, replace the import statement
+from `@import "ember-cli-bootswatch/bootswatch";` to `@import "ember-cli-bootswatch/bootstrap";`.
+When using the Bootstrap theme, the nested imported files are different.
+
+Alternately, you can import Sass files directly from Bootstrap/Bootswatch yourself.
+All Bootstrap `*.scss` files are available from `ember-cli-bootswatch/bootstrap/*`
+and the selected Bootswatch theme is available from `ember-cli-bootswatch/bootswatch/*`.
+Note, all other Bootswatch themes are *not* imported into the styles tree, 
+just the selected theme.
+
+To strictly disable Sass support (even if you have `ember-cli-sass` installed),
+define the `importCSS` and `importScss` options in your `ember-cli-build.js` file. Ex:
+
+```javascript
+// ember-cli-build.js
+'use strict';
+
+const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+
+module.exports = function(defaults) {
+  let app = new EmberApp(defaults, {
+    'ember-cli-bootswatch': {
+      theme: 'cerulean',
+      importCSS: true,
+      importScss: false
+    },
+    sassOptions: {
+      // But you still use Sass for other things...
+    }
+  });
+
+  // ... (documentation snipped)
+
+  return app.toTree();
+};
+```
+
+
+
+
 ## Usage with other Bootstrap addons
 
 You can certainly use this addon to just bring in a Bootswatch theme
@@ -130,4 +184,12 @@ module.exports = function(defaults) {
 
   return app.toTree();
 };
+```
+
+Additionally, make sure the `ember-bootstrap` import statement is
+removed from your `app.scss` file:
+
+```scss
+// Remove the following line
+@import "ember-bootstrap/bootstrap";
 ```

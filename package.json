@@ -32,6 +32,8 @@
   "dependencies": {
     "bootstrap": "^4.0.0",
     "bootswatch": "^4.0.0",
+    "broccoli-funnel": "^2.0.1",
+    "broccoli-merge-trees": "^3.0.0",
     "popper.js": "^1.12.9"
   }
 }

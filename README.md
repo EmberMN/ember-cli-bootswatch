@@ -49,7 +49,7 @@ as an `'ember-cli-bootswatch'` object property. Available options include:
 | `importCSS`      | boolean          | `true`**   | Import the theme's `bootstrap.css` file into your `vendor.css` file. **Automatically disabled if `ember-cli-sass` is detected in the app. |
 | `importSass`     | boolean          | `false`**  | Import the theme's `*.scss` files into the styles tree. **Automatically enabled if `ember-cli-sass` is detected in the app. |
 | `importJS`       | boolean or array | `false`    | Import the `bootstrap.js` file (`true`) or specific Bootstrap plugins (`array`) into your `vendor.js` file |
-| `importPopperJS` | boolean          | `false`**  | Import the [Popper.js dependency](http://getbootstrap.com/docs/4.0/getting-started/javascript/#dependencies) into your `vendor.js` file. **Automatically enabled if `importJS = true` or `importJS = []` with a plugin that needs Popper.js.* |
+| `importPopperJS` | boolean          | `false`**  | Import the [Popper.js dependency](http://getbootstrap.com/docs/4.0/getting-started/javascript/#dependencies) into your `vendor.js` file. **Automatically enabled if `importJS = true` or `importJS = []` with a plugin that needs Popper.js. |
 
 The only required option is the `theme`. If you do not need to adjust
 any other options, you can just define a string of the theme name

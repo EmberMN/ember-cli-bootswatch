@@ -9,7 +9,7 @@ to use within your templates. Other addons provide those features, such as
 [ember-bootstrap](http://www.ember-bootstrap.com/) or
 [visit emberobserver.com](https://www.emberobserver.com/categories/bootstrap) for others.
 
-_Note, this addon scores low on [Ember Observer](https://emberobserver.com/addons/ember-cli-bootswatch) because; it's very basic and isn't easily testable (-2 points), and it could use more contributers (-1 point). It is still maintained and works with the latest versions of ember-cli (2.x)!_
+_Note, this addon scores low on [Ember Observer](https://emberobserver.com/addons/ember-cli-bootswatch) because; it's very basic and isn't easily testable (-2 points), and it could use more contributers (-1 point). It is still maintained and works with the latest versions of ember-cli!_
 
 
 
@@ -21,7 +21,7 @@ This addon has a version break for the Bootstrap version and ember-cli requireme
 | Addon Version | Bootstrap Version | ember-cli Version | Node Version  | Dependencies    |
 |---------------|-------------------|-------------------|---------------|-----------------|
 | 1.x           | 3.x               | 1.13+             | 4.0+          | Uses bower deps |
-| 2.x           | 4.x               | 2.15+             | 6.* || >= 8.* | Uses npm deps   |
+| 2.x           | 4.x               | 2.15+             | 6.0+          | Uses npm deps   |
 
 
 
@@ -40,19 +40,16 @@ ember install ember-cli-bootswatch
 
 ## Configuration
 
-
-#### Addon Options
-
 Options for this addon are configured in the projects `ember-cli-build.js` file
 as an `'ember-cli-bootswatch'` object property. Available options include:
 
 | Option           | Type             | Default    | Description |
 |------------------|------------------|------------|-------------|
 | `theme`          | string           | *required* | Name of the Bootswatch theme to be imported, or `'default'` for the standard Bootstap theme |
-| `importCSS`      | boolean          | `true`**   | Import the theme's `bootstrap.css` file into your `vendor.css` file. ** Automatically disabled if `ember-cli-sass` is detected in the app. |
-| `importSass`     | boolean          | `false`**  | Import the theme's `*.scss` files into the styles tree. Automatically enabled if `ember-cli-sass` is detected in the app. |
+| `importCSS`      | boolean          | `true`**   | Import the theme's `bootstrap.css` file into your `vendor.css` file. **Automatically disabled if `ember-cli-sass` is detected in the app. |
+| `importSass`     | boolean          | `false`**  | Import the theme's `*.scss` files into the styles tree. **Automatically enabled if `ember-cli-sass` is detected in the app. |
 | `importJS`       | boolean or array | `false`    | Import the `bootstrap.js` file (`true`) or specific Bootstrap plugins (`array`) into your `vendor.js` file |
-| `importPopperJS` | boolean          | `false`**  | Import the [Popper.js dependency](http://getbootstrap.com/docs/4.0/getting-started/javascript/#dependencies) into your `vendor.js` file. ** Automatically enabled if `importJS = true` or `importJS = []` with a plugin that needs Popper.js.* |
+| `importPopperJS` | boolean          | `false`**  | Import the [Popper.js dependency](http://getbootstrap.com/docs/4.0/getting-started/javascript/#dependencies) into your `vendor.js` file. **Automatically enabled if `importJS = true` or `importJS = []` with a plugin that needs Popper.js.* |
 
 The only required option is the `theme`. If you do not need to adjust
 any other options, you can just define a string of the theme name
@@ -114,7 +111,7 @@ if `app/styles/app.scss` is found, an import statement is inserted for
 installing this addon, you will need to add the import statement to your
 `app.scss` file manually.
 
-If you plan on using the `default` Bootstrap theme, replace the import statement
+If you plan on using the 'default' Bootstrap theme, replace the import statement
 from `@import "ember-cli-bootswatch/bootswatch";` to `@import "ember-cli-bootswatch/bootstrap";`.
 When using the Bootstrap theme, the nested imported files are different.
 

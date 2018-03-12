@@ -4,13 +4,13 @@
   "version": "2.0.0-beta.4",
   "license": "MIT",
   "author": "Ryan <panman82@gmail.com>",
-  "homepage": "https://github.com/Panman8201/ember-cli-bootswatch",
+  "homepage": "https://github.com/EmberMN/ember-cli-bootswatch",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Panman8201/ember-cli-bootswatch.git"
+    "url": "https://github.com/EmberMN/ember-cli-bootswatch.git"
   },
   "bugs": {
-    "url": "https://github.com/Panman8201/ember-cli-bootswatch/issues"
+    "url": "https://github.com/EmberMN/ember-cli-bootswatch/issues"
   },
   "keywords": [
     "ember-addon",

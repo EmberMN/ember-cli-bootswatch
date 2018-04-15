@@ -104,6 +104,15 @@ Sass support has been added so that you can `@import` the Bootstrap/Bootswatch
 theme in your `app.scss` file with the ability to [override variable defaults](http://getbootstrap.com/docs/4.0/getting-started/theming/#variable-defaults).
 Just be sure to add your variable overrides *before* the `@import` statement.
 
+```scss
+// app/styles/app.scss
+
+$body-bg: #e9ecef;
+$border-radius: .10rem;
+
+@import "ember-cli-bootswatch/bootswatch";
+```
+
 When `ember-cli-sass` is detected, the `importScss` option will automatically
 be enabled and `importCSS` disabled (when not defined in your config). Additionally, 
 if `app/styles/app.scss` is found, an import statement is inserted for 
@@ -115,11 +124,29 @@ If you plan on using the 'default' Bootstrap theme, replace the import statement
 from `@import "ember-cli-bootswatch/bootswatch";` to `@import "ember-cli-bootswatch/bootstrap";`.
 When using the Bootstrap theme, the nested imported files are different.
 
+```scss
+// app/styles/app.scss
+@import "ember-cli-bootswatch/bootswatch"; // for any bootswatch theme
+@import "ember-cli-bootswatch/bootstrap"; // for the "default" bootstrap theme
+```
+
 Alternately, you can import Sass files directly from Bootstrap/Bootswatch yourself.
+An example would be to use an existing variable to override another variable (ex: below).
 All Bootstrap `*.scss` files are available from `ember-cli-bootswatch/bootstrap/*`
 and the selected Bootswatch theme is available from `ember-cli-bootswatch/bootswatch/*`.
 Note, all other Bootswatch themes are *not* imported into the styles tree, 
 just the selected theme.
+
+```scss
+// app/styles/app.scss
+@import 'ember-cli-bootswatch/bootswatch/variables';
+
+$body-bg: $gray-200; // where $gray-200 is from above variables import
+$border-radius: .10rem;
+
+@import 'ember-cli-bootswatch/bootstrap/bootstrap';
+@import 'ember-cli-bootswatch/bootswatch/bootswatch';
+```
 
 To strictly disable Sass support (even if you have `ember-cli-sass` installed),
 define the `importCSS` and `importScss` options in your `ember-cli-build.js` file. Ex:

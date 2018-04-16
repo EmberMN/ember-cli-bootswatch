@@ -139,13 +139,13 @@ just the selected theme.
 
 ```scss
 // app/styles/app.scss
-@import 'ember-cli-bootswatch/bootswatch/variables';
+@import "ember-cli-bootswatch/bootswatch/variables";
 
 $body-bg: $gray-200; // where $gray-200 is from above variables import
 $border-radius: .10rem;
 
-@import 'ember-cli-bootswatch/bootstrap/bootstrap';
-@import 'ember-cli-bootswatch/bootswatch/bootswatch';
+@import "ember-cli-bootswatch/bootstrap/bootstrap";
+@import "ember-cli-bootswatch/bootswatch/bootswatch";
 ```
 
 To strictly disable Sass support (even if you have `ember-cli-sass` installed),

@@ -1,7 +1,7 @@
 {
   "name": "ember-cli-bootswatch",
   "description": "An ember-cli addon to import a Bootswatch theme and Bootstrap files.",
-  "version": "2.0.0-beta.5",
+  "version": "2.0.0",
   "license": "MIT",
   "author": "Ryan <panman82@gmail.com>",
   "homepage": "https://github.com/EmberMN/ember-cli-bootswatch",

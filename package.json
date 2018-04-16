@@ -23,8 +23,10 @@
   ],
   "scripts": {
     "build": "echo \"Error: this addon is not a full ember-cli addon\" && exit 1",
+    "lint:js": "echo \"Error: this addon is not a full ember-cli addon\" && exit 1",
     "start": "echo \"Error: this addon is not a full ember-cli addon\" && exit 1",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no tests exist\" && exit 1",
+    "test:all": "echo \"Error: no tests exist\" && exit 1"
   },
   "engines": {
     "node": "6.* || >= 8.*"

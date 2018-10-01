@@ -21,7 +21,7 @@ This addon has a version break for the Bootstrap version and ember-cli requireme
 | Addon Version | Bootstrap Version | ember-cli Version | Node Version  | Dependencies    |
 |---------------|-------------------|-------------------|---------------|-----------------|
 | 1.x           | 3.x               | 1.13+             | 4.0+          | Uses bower deps |
-| 2.x           | 4.x               | 2.15+             | 6.0+          | Uses npm deps   |
+| 2.x           | 4.x               | 2.15+ (& 3.x)     | 6.0+          | Uses npm deps   |
 
 
 
